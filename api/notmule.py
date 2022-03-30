@@ -17,11 +17,12 @@ db = myclient["dbdb"]
 col = db["orders"]
 
 
-@notmule.get("/await")
-def root():
+@notmule.post("/await")
+def aww(payload:dict):
+    sell = payload["sellerid"]
 
     orders=[]
-    for x in db.orders.find({"sellerid":"6239e282d27797c9810aed12"},{'_id': 0}):
+    for x in db.orders.find({"sellerid":sell},{'_id': 0}):
         orders.append(x)
     for user in orders:
         

@@ -1,6 +1,7 @@
 import imp
 from this import s
 from fastapi import APIRouter
+from fastapi import Request, FastAPI
 import pymongo
 from bson import ObjectId
 import os
@@ -18,8 +19,8 @@ col = db["orders"]
 
 
 @notmule.post("/await")
-def aww(payload:dict):
-    sell = payload["sellerid"]
+async def aww(request: Request):
+    print(await request.json())
 
     orders=[]
     for x in db.orders.find({"sellerid":sell},{'_id': 0}):
@@ -36,6 +37,8 @@ def aww(payload:dict):
         print(listing)
 
     return orders
+
+
 
 
 

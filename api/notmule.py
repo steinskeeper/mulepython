@@ -1,17 +1,25 @@
+import imp
 from this import s
 from fastapi import APIRouter
 import pymongo
 from bson import ObjectId
+import os
+from dotenv import load_dotenv
 notmule = APIRouter()
 
+load_dotenv()
+mongourl=os.getenv("MONGO")
+
+
 myclient = pymongo.MongoClient(
-    "mongodb+srv://dhanushyp:.Coders#wow@cluster0.lshuz.mongodb.net")
+    mongourl,)
 db = myclient["dbdb"]
 col = db["orders"]
 
 
 @notmule.get("/await")
 def root():
+
     orders=[]
     for x in db.orders.find({"sellerid":"6239e282d27797c9810aed12"},{'_id': 0}):
         orders.append(x)
